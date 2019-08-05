@@ -1,0 +1,30 @@
+{
+  "name": "ts-server",
+  "version": "0.0.1",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "start": "ts-node ./src/index.ts",
+    "test": "jest",
+    "tsc": "tsc",
+    "lint": "tslint",
+    "check": "tsc && lint"
+  },
+  "author": "claude-ray",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^24.0.16",
+    "@types/node": "^11.13.7",
+    "@types/supertest": "^2.0.8",
+    "jest": "^24.8.0",
+    "supertest": "^4.0.2",
+    "ts-jest": "^24.0.2",
+    "ts-node": "^8.3.0",
+    "tslint": "^5.18.0",
+    "typescript": "^3.4.4"
+  },
+  "jest": {
+    "preset": "ts-jest"
+  }
+}
