@@ -1,10 +1,15 @@
 import http from 'http';
 import request from 'supertest';
 
-import server from '../src';
+import config from './config';
+import createProxy from '../src';
+
+const proxyListener = createProxy(config.servers);
+
+const server = http.createServer(proxyListener);
 
 function createServer(port: number) {
-  const onRequest: http.RequestListener = (req, res) => {
+  const requestListener: http.RequestListener = (req, res) => {
     const { headers, method, url } = req;
     res.statusCode = 200;
     res.statusMessage = 'hello claude';
@@ -12,22 +17,20 @@ function createServer(port: number) {
     const data = { headers, method, url, port };
     res.end(JSON.stringify(data));
   };
-  return http.createServer(onRequest).listen(port);
+  const s = http.createServer(requestListener);
+  return new Promise(resolve => s.listen(port, () => resolve(s)));
 }
 
-function sleep(ms: number) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-let servers: http.Server[];
+let servers: http.Server[] = [];
 
 beforeAll(async () => {
-  servers = [8081, 8082, 8083].map(port => createServer(port));
-  await sleep(1000);
+  await new Promise(resolve => server.listen(config.listen, resolve));
+  servers = await Promise.all([8081, 8082, 8083].map(port => createServer(port))) as http.Server[];
 });
 
 afterAll(() => {
   servers.map(s => s.close());
+  server.close();
 });
 
 describe('server', () => {
