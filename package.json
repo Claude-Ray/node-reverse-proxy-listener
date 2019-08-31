@@ -1,7 +1,7 @@
 {
-  "name": "proxy-listener",
+  "name": "reverse-proxy-listener",
   "version": "0.0.1",
-  "description": "",
+  "description": "Simple load balancing reverse proxy RequestListener based on pure Node.js.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
