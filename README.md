@@ -4,7 +4,7 @@
 
 Simple load balancing reverse proxy RequestListener based on pure Node.js.
 
-WARNNING: Do not use this development listener in a production environment!
+WARNNING: Do not use this experimental listener in a production environment!
 
 ## API
 - reverse-proxy-listener([UpstreamServers]) => http.RequestListener
